@@ -6,6 +6,7 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { StudentsModule } from './modules/students/students.module';
 import 'dotenv/config';
+import 'reflect-metadata';
 
 const cfg: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -14,15 +15,17 @@ const cfg: TypeOrmModuleOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
+  synchronize: true,
+  logging: true,
   entities: [
-    "src/database/models/**/*.ts,modules/**/entity/*.js"
+    "**/modules/**/entities/*.js"
   ],
   migrations: [
     "src/database/migrations/**/*.ts"
   ],
   cli: {
     migrationsDir: "src/database/migrations/",
-    entitiesDir: "src/models"
+    entitiesDir: "**/modules/**/entities"
   }
 }
 
