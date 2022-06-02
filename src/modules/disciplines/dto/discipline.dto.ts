@@ -4,5 +4,6 @@ import { BaseDTO } from '../../bases/dto/base.dto';
 
 @ObjectType('Discipline')
 export class DisciplineDTO extends BaseDTO {
+    @FilterableField()
     name: string;
 }

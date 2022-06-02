@@ -1,3 +1,4 @@
-import { createConnection } from 'typeorm';
 
-createConnection()
+
+
+//This Only Exists for aesthetics
