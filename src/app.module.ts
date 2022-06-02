@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { StudentsModule } from './modules/students/students.module';
+import { DisciplinesModule } from './modules/disciplines/disciplines.module';
 import 'dotenv/config';
 import 'reflect-metadata';
 
@@ -42,7 +43,8 @@ const cfg: TypeOrmModuleOptions = {
 
     StudentsModule,
 
-  
+    DisciplinesModule,
+
 
   ],
   providers: [AppService],

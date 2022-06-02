@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
+import { NestjsQueryGraphQLModule, PagingStrategies } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { Student } from './entities/student.entity';
 import { StudentDTO } from './dto/student.dto';
@@ -17,9 +17,13 @@ import { UpdateStudentInput } from './dto/update-student.input';
           CreateDTOClass: CreateStudentInput,
           UpdateDTOClass: UpdateStudentInput,
           enableTotalCount: true,
+          pagingStrategy: PagingStrategies.OFFSET,
+
         }
       ],
     })
   ],
+
+  providers: [],
 })
 export class StudentsModule {}
