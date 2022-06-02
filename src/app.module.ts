@@ -6,6 +6,8 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { StudentsModule } from './modules/students/students.module';
 import { DisciplinesModule } from './modules/disciplines/disciplines.module';
+import { LessonsModule } from './modules/lessons/lessons.module';
+import { ContentsModule } from './modules/contents/contents.module';
 import 'dotenv/config';
 import 'reflect-metadata';
 
@@ -44,6 +46,10 @@ const cfg: TypeOrmModuleOptions = {
     StudentsModule,
 
     DisciplinesModule,
+
+    LessonsModule,
+
+    ContentsModule,
 
 
   ],

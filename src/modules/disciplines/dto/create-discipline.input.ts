@@ -2,6 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateDisciplineInput {
-  @Field()
+  @Field(() => String)
   name: string;
 }
