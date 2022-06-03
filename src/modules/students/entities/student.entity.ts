@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany } from 'typeorm';
 import { BaseEntity } from '../../bases/entities/base.entity';
+import { Discipline } from '../../disciplines/entities/discipline.entity';
 
 @Entity()
 export class Student extends BaseEntity {
@@ -9,5 +10,10 @@ export class Student extends BaseEntity {
 
   @Column()
   key: string;
+
+  @ManyToMany(() => Discipline, (disciplines) => disciplines.students ,{
+    nullable: true
+  })
+  disciplines: Discipline[]
 
 }

@@ -7,9 +7,13 @@ export class Content extends BaseEntity {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true})
   linkContent: string;
 
-  @ManyToOne(() => Lesson)
+  @ManyToOne(() => Lesson, { nullable: true})
   lesson: Lesson;
+
+  @Column({ nullable: true})
+  lessonId: string;
+
 }

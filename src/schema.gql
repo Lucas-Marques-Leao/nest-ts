@@ -10,6 +10,22 @@ input AddContentsToLessonInput {
   relationIds: [ID!]!
 }
 
+input AddDisciplinesToStudentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddStudentsToDisciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 type Content {
   createdAt: DateTime!
   deletedAt: DateTime!
@@ -137,6 +153,7 @@ input ContentUpdateFilter {
 
 input CreateContentInput {
   description: String!
+  lessonId: String
   linkContent: String
 }
 
@@ -268,6 +285,16 @@ type Discipline {
   deletedAt: DateTime!
   id: String!
   name: String!
+  students(
+    """Specify to filter the records returned."""
+    filter: StudentFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [StudentSort!] = []
+  ): DisciplineStudentsConnection
   updatedAt: DateTime!
 }
 
@@ -323,6 +350,18 @@ input DisciplineFilter {
   id: StringFieldComparison
   name: StringFieldComparison
   or: [DisciplineFilter!]
+  students: DisciplineFilterStudentFilter
+  updatedAt: DateFieldComparison
+}
+
+input DisciplineFilterStudentFilter {
+  and: [DisciplineFilterStudentFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  key: StringFieldComparison
+  name: StringFieldComparison
+  or: [DisciplineFilterStudentFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -354,6 +393,17 @@ enum DisciplineSortFields {
   id
   name
   updatedAt
+}
+
+type DisciplineStudentsConnection {
+  """Array of nodes."""
+  nodes: [Student!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 input DisciplineUpdateFilter {
@@ -504,6 +554,8 @@ input LessonUpdateFilter {
 
 type Mutation {
   addContentsToLesson(input: AddContentsToLessonInput!): Lesson!
+  addDisciplinesToStudent(input: AddDisciplinesToStudentInput!): Student!
+  addStudentsToDiscipline(input: AddStudentsToDisciplineInput!): Discipline!
   createManyContents(input: CreateManyContentsInput!): [Content!]!
   createManyDisciplines(input: CreateManyDisciplinesInput!): [Discipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [Lesson!]!
@@ -521,9 +573,13 @@ type Mutation {
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
   deleteOneStudent(input: DeleteOneStudentInput!): StudentDeleteResponse!
   removeContentsFromLesson(input: RemoveContentsFromLessonInput!): Lesson!
+  removeDisciplinesFromStudent(input: RemoveDisciplinesFromStudentInput!): Student!
   removeLessonFromContent(input: RemoveLessonFromContentInput!): Content!
+  removeStudentsFromDiscipline(input: RemoveStudentsFromDisciplineInput!): Discipline!
   setContentsOnLesson(input: SetContentsOnLessonInput!): Lesson!
+  setDisciplinesOnStudent(input: SetDisciplinesOnStudentInput!): Student!
   setLessonOnContent(input: SetLessonOnContentInput!): Content!
+  setStudentsOnDiscipline(input: SetStudentsOnDisciplineInput!): Discipline!
   updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
   updateManyDisciplines(input: UpdateManyDisciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
@@ -617,6 +673,14 @@ input RemoveContentsFromLessonInput {
   relationIds: [ID!]!
 }
 
+input RemoveDisciplinesFromStudentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input RemoveLessonFromContentInput {
   """The id of the record."""
   id: ID!
@@ -625,7 +689,23 @@ input RemoveLessonFromContentInput {
   relationId: ID!
 }
 
+input RemoveStudentsFromDisciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input SetContentsOnLessonInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetDisciplinesOnStudentInput {
   """The id of the record."""
   id: ID!
 
@@ -639,6 +719,14 @@ input SetLessonOnContentInput {
 
   """The id of relation."""
   relationId: ID!
+}
+
+input SetStudentsOnDisciplineInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 """Sort Directions"""
@@ -673,6 +761,16 @@ input StringFieldComparison {
 type Student {
   createdAt: DateTime!
   deletedAt: DateTime!
+  disciplines(
+    """Specify to filter the records returned."""
+    filter: DisciplineFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [DisciplineSort!] = []
+  ): StudentDisciplinesConnection
   id: String!
   key: String!
   name: String!
@@ -728,14 +826,36 @@ type StudentDeleteResponse {
   updatedAt: DateTime
 }
 
+type StudentDisciplinesConnection {
+  """Array of nodes."""
+  nodes: [Discipline!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
 input StudentFilter {
   and: [StudentFilter!]
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  disciplines: StudentFilterDisciplineFilter
   id: StringFieldComparison
   key: StringFieldComparison
   name: StringFieldComparison
   or: [StudentFilter!]
+  updatedAt: DateFieldComparison
+}
+
+input StudentFilterDisciplineFilter {
+  and: [StudentFilterDisciplineFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [StudentFilterDisciplineFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -786,6 +906,7 @@ input StudentUpdateFilter {
 input UpdateContentInput {
   description: String
   id: ID
+  lessonId: String
   linkContent: String
 }
 
