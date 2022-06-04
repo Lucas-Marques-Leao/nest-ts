@@ -8,6 +8,7 @@ import { StudentsModule } from './modules/students/students.module';
 import { DisciplinesModule } from './modules/disciplines/disciplines.module';
 import { LessonsModule } from './modules/lessons/lessons.module';
 import { ContentsModule } from './modules/contents/contents.module';
+import { TestsModule } from './modules/tests/tests.module';
 import 'dotenv/config';
 import 'reflect-metadata';
 
@@ -18,13 +19,13 @@ const cfg: TypeOrmModuleOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
-  synchronize: true,
+  synchronize: false,
   logging: true,
   entities: [
     "**/modules/**/entities/*.js"
   ],
   migrations: [
-    "src/database/migrations/**/*.ts"
+    "src/database/migrations/**/*.js"
   ],
   cli: {
     migrationsDir: "src/database/migrations/",
@@ -51,6 +52,7 @@ const cfg: TypeOrmModuleOptions = {
 
     ContentsModule,
 
+    TestsModule,
 
   ],
   providers: [AppService],

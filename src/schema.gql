@@ -185,6 +185,11 @@ input CreateManyStudentsInput {
   students: [CreateStudentInput!]!
 }
 
+input CreateManyTestsInput {
+  """Array of records to create"""
+  tests: [CreateTestInput!]!
+}
+
 input CreateOneContentInput {
   """The record to create"""
   content: CreateContentInput!
@@ -205,9 +210,19 @@ input CreateOneStudentInput {
   student: CreateStudentInput!
 }
 
+input CreateOneTestInput {
+  """The record to create"""
+  test: CreateTestInput!
+}
+
 input CreateStudentInput {
   key: String!
   name: String!
+}
+
+input CreateTestInput {
+  ex: Float
+  exx: String
 }
 
 input DateFieldComparison {
@@ -260,6 +275,11 @@ input DeleteManyStudentsInput {
   filter: StudentDeleteFilter!
 }
 
+input DeleteManyTestsInput {
+  """Filter to find records to delete"""
+  filter: TestDeleteFilter!
+}
+
 input DeleteOneContentInput {
   """The id of the record to delete."""
   id: ID!
@@ -276,6 +296,11 @@ input DeleteOneLessonInput {
 }
 
 input DeleteOneStudentInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneTestInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -560,18 +585,22 @@ type Mutation {
   createManyDisciplines(input: CreateManyDisciplinesInput!): [Discipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [Lesson!]!
   createManyStudents(input: CreateManyStudentsInput!): [Student!]!
+  createManyTests(input: CreateManyTestsInput!): [Test!]!
   createOneContent(input: CreateOneContentInput!): Content!
   createOneDiscipline(input: CreateOneDisciplineInput!): Discipline!
   createOneLesson(input: CreateOneLessonInput!): Lesson!
   createOneStudent(input: CreateOneStudentInput!): Student!
+  createOneTest(input: CreateOneTestInput!): Test!
   deleteManyContents(input: DeleteManyContentsInput!): DeleteManyResponse!
   deleteManyDisciplines(input: DeleteManyDisciplinesInput!): DeleteManyResponse!
   deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
   deleteManyStudents(input: DeleteManyStudentsInput!): DeleteManyResponse!
+  deleteManyTests(input: DeleteManyTestsInput!): DeleteManyResponse!
   deleteOneContent(input: DeleteOneContentInput!): ContentDeleteResponse!
   deleteOneDiscipline(input: DeleteOneDisciplineInput!): DisciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
   deleteOneStudent(input: DeleteOneStudentInput!): StudentDeleteResponse!
+  deleteOneTest(input: DeleteOneTestInput!): TestDeleteResponse!
   removeContentsFromLesson(input: RemoveContentsFromLessonInput!): Lesson!
   removeDisciplinesFromStudent(input: RemoveDisciplinesFromStudentInput!): Student!
   removeLessonFromContent(input: RemoveLessonFromContentInput!): Content!
@@ -584,10 +613,32 @@ type Mutation {
   updateManyDisciplines(input: UpdateManyDisciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
   updateManyStudents(input: UpdateManyStudentsInput!): UpdateManyResponse!
+  updateManyTests(input: UpdateManyTestsInput!): UpdateManyResponse!
   updateOneContent(input: UpdateOneContentInput!): Content!
   updateOneDiscipline(input: UpdateOneDisciplineInput!): Discipline!
   updateOneLesson(input: UpdateOneLessonInput!): Lesson!
   updateOneStudent(input: UpdateOneStudentInput!): Student!
+  updateOneTest(input: UpdateOneTestInput!): Test!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type OffsetPageInfo {
@@ -663,6 +714,20 @@ type Query {
     """Specify to sort results."""
     sorting: [StudentSort!] = []
   ): StudentConnection!
+  test(
+    """The id of the record to find."""
+    id: ID!
+  ): Test
+  tests(
+    """Specify to filter the records returned."""
+    filter: TestFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [TestSort!] = []
+  ): TestConnection!
 }
 
 input RemoveContentsFromLessonInput {
@@ -903,6 +968,127 @@ input StudentUpdateFilter {
   updatedAt: DateFieldComparison
 }
 
+type Test {
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  ex: Float
+  exx: String
+  id: String!
+  updatedAt: DateTime!
+}
+
+type TestAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  ex: Float
+  exx: String
+  id: String
+  updatedAt: DateTime
+}
+
+type TestAvgAggregate {
+  ex: Float
+}
+
+type TestConnection {
+  """Array of nodes."""
+  nodes: [Test!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type TestCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  ex: Int
+  exx: Int
+  id: Int
+  updatedAt: Int
+}
+
+input TestDeleteFilter {
+  and: [TestDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  ex: NumberFieldComparison
+  exx: StringFieldComparison
+  id: StringFieldComparison
+  or: [TestDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type TestDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  ex: Float
+  exx: String
+  id: String
+  updatedAt: DateTime
+}
+
+input TestFilter {
+  and: [TestFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  ex: NumberFieldComparison
+  exx: StringFieldComparison
+  id: StringFieldComparison
+  or: [TestFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type TestMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  ex: Float
+  exx: String
+  id: String
+  updatedAt: DateTime
+}
+
+type TestMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  ex: Float
+  exx: String
+  id: String
+  updatedAt: DateTime
+}
+
+input TestSort {
+  direction: SortDirection!
+  field: TestSortFields!
+  nulls: SortNulls
+}
+
+enum TestSortFields {
+  createdAt
+  deletedAt
+  ex
+  exx
+  id
+  updatedAt
+}
+
+type TestSumAggregate {
+  ex: Float
+}
+
+input TestUpdateFilter {
+  and: [TestUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  ex: NumberFieldComparison
+  exx: StringFieldComparison
+  id: StringFieldComparison
+  or: [TestUpdateFilter!]
+  updatedAt: DateFieldComparison
+}
+
 input UpdateContentInput {
   description: String
   id: ID
@@ -957,6 +1143,14 @@ input UpdateManyStudentsInput {
   update: UpdateStudentInput!
 }
 
+input UpdateManyTestsInput {
+  """Filter used to find fields to update"""
+  filter: TestUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateTestInput!
+}
+
 input UpdateOneContentInput {
   """The id of the record to update"""
   id: ID!
@@ -989,8 +1183,22 @@ input UpdateOneStudentInput {
   update: UpdateStudentInput!
 }
 
+input UpdateOneTestInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateTestInput!
+}
+
 input UpdateStudentInput {
   id: ID
   key: String
   name: String
+}
+
+input UpdateTestInput {
+  ex: Float
+  exx: String
+  id: ID
 }
