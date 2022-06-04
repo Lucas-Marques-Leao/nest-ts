@@ -9,4 +9,7 @@ export class TestDTO extends BaseDTO {
 
   @FilterableField({nullable: true})
   exx: string;
+
+  @FilterableField({nullable: true})
+  exxx: string;
 }

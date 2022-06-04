@@ -223,6 +223,7 @@ input CreateStudentInput {
 input CreateTestInput {
   ex: Float
   exx: String
+  exxx: String
 }
 
 input DateFieldComparison {
@@ -973,6 +974,7 @@ type Test {
   deletedAt: DateTime!
   ex: Float
   exx: String
+  exxx: String
   id: String!
   updatedAt: DateTime!
 }
@@ -982,6 +984,7 @@ type TestAggregateGroupBy {
   deletedAt: DateTime
   ex: Float
   exx: String
+  exxx: String
   id: String
   updatedAt: DateTime
 }
@@ -1006,6 +1009,7 @@ type TestCountAggregate {
   deletedAt: Int
   ex: Int
   exx: Int
+  exxx: Int
   id: Int
   updatedAt: Int
 }
@@ -1016,6 +1020,7 @@ input TestDeleteFilter {
   deletedAt: DateFieldComparison
   ex: NumberFieldComparison
   exx: StringFieldComparison
+  exxx: StringFieldComparison
   id: StringFieldComparison
   or: [TestDeleteFilter!]
   updatedAt: DateFieldComparison
@@ -1026,6 +1031,7 @@ type TestDeleteResponse {
   deletedAt: DateTime
   ex: Float
   exx: String
+  exxx: String
   id: String
   updatedAt: DateTime
 }
@@ -1036,6 +1042,7 @@ input TestFilter {
   deletedAt: DateFieldComparison
   ex: NumberFieldComparison
   exx: StringFieldComparison
+  exxx: StringFieldComparison
   id: StringFieldComparison
   or: [TestFilter!]
   updatedAt: DateFieldComparison
@@ -1046,6 +1053,7 @@ type TestMaxAggregate {
   deletedAt: DateTime
   ex: Float
   exx: String
+  exxx: String
   id: String
   updatedAt: DateTime
 }
@@ -1055,6 +1063,7 @@ type TestMinAggregate {
   deletedAt: DateTime
   ex: Float
   exx: String
+  exxx: String
   id: String
   updatedAt: DateTime
 }
@@ -1070,6 +1079,7 @@ enum TestSortFields {
   deletedAt
   ex
   exx
+  exxx
   id
   updatedAt
 }
@@ -1084,6 +1094,7 @@ input TestUpdateFilter {
   deletedAt: DateFieldComparison
   ex: NumberFieldComparison
   exx: StringFieldComparison
+  exxx: StringFieldComparison
   id: StringFieldComparison
   or: [TestUpdateFilter!]
   updatedAt: DateFieldComparison
@@ -1200,5 +1211,6 @@ input UpdateStudentInput {
 input UpdateTestInput {
   ex: Float
   exx: String
+  exxx: String
   id: ID
 }
