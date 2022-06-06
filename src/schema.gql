@@ -26,6 +26,11 @@ input AddStudentsToDisciplineInput {
   relationIds: [ID!]!
 }
 
+input BooleanFieldComparison {
+  is: Boolean
+  isNot: Boolean
+}
+
 type Content {
   createdAt: DateTime!
   deletedAt: DateTime!
@@ -180,6 +185,11 @@ input CreateManyLessonsInput {
   lessons: [CreateLessonInput!]!
 }
 
+input CreateManyProductsInput {
+  """Array of records to create"""
+  products: [CreateProductInput!]!
+}
+
 input CreateManyStudentsInput {
   """Array of records to create"""
   students: [CreateStudentInput!]!
@@ -205,6 +215,11 @@ input CreateOneLessonInput {
   lesson: CreateLessonInput!
 }
 
+input CreateOneProductInput {
+  """The record to create"""
+  product: CreateProductInput!
+}
+
 input CreateOneStudentInput {
   """The record to create"""
   student: CreateStudentInput!
@@ -213,6 +228,12 @@ input CreateOneStudentInput {
 input CreateOneTestInput {
   """The record to create"""
   test: CreateTestInput!
+}
+
+input CreateProductInput {
+  brand: String!
+  isBroken: Boolean
+  name: String!
 }
 
 input CreateStudentInput {
@@ -266,6 +287,11 @@ input DeleteManyLessonsInput {
   filter: LessonDeleteFilter!
 }
 
+input DeleteManyProductsInput {
+  """Filter to find records to delete"""
+  filter: ProductDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -292,6 +318,11 @@ input DeleteOneDisciplineInput {
 }
 
 input DeleteOneLessonInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneProductInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -585,21 +616,25 @@ type Mutation {
   createManyContents(input: CreateManyContentsInput!): [Content!]!
   createManyDisciplines(input: CreateManyDisciplinesInput!): [Discipline!]!
   createManyLessons(input: CreateManyLessonsInput!): [Lesson!]!
+  createManyProducts(input: CreateManyProductsInput!): [Product!]!
   createManyStudents(input: CreateManyStudentsInput!): [Student!]!
   createManyTests(input: CreateManyTestsInput!): [Test!]!
   createOneContent(input: CreateOneContentInput!): Content!
   createOneDiscipline(input: CreateOneDisciplineInput!): Discipline!
   createOneLesson(input: CreateOneLessonInput!): Lesson!
+  createOneProduct(input: CreateOneProductInput!): Product!
   createOneStudent(input: CreateOneStudentInput!): Student!
   createOneTest(input: CreateOneTestInput!): Test!
   deleteManyContents(input: DeleteManyContentsInput!): DeleteManyResponse!
   deleteManyDisciplines(input: DeleteManyDisciplinesInput!): DeleteManyResponse!
   deleteManyLessons(input: DeleteManyLessonsInput!): DeleteManyResponse!
+  deleteManyProducts(input: DeleteManyProductsInput!): DeleteManyResponse!
   deleteManyStudents(input: DeleteManyStudentsInput!): DeleteManyResponse!
   deleteManyTests(input: DeleteManyTestsInput!): DeleteManyResponse!
   deleteOneContent(input: DeleteOneContentInput!): ContentDeleteResponse!
   deleteOneDiscipline(input: DeleteOneDisciplineInput!): DisciplineDeleteResponse!
   deleteOneLesson(input: DeleteOneLessonInput!): LessonDeleteResponse!
+  deleteOneProduct(input: DeleteOneProductInput!): ProductDeleteResponse!
   deleteOneStudent(input: DeleteOneStudentInput!): StudentDeleteResponse!
   deleteOneTest(input: DeleteOneTestInput!): TestDeleteResponse!
   removeContentsFromLesson(input: RemoveContentsFromLessonInput!): Lesson!
@@ -613,11 +648,13 @@ type Mutation {
   updateManyContents(input: UpdateManyContentsInput!): UpdateManyResponse!
   updateManyDisciplines(input: UpdateManyDisciplinesInput!): UpdateManyResponse!
   updateManyLessons(input: UpdateManyLessonsInput!): UpdateManyResponse!
+  updateManyProducts(input: UpdateManyProductsInput!): UpdateManyResponse!
   updateManyStudents(input: UpdateManyStudentsInput!): UpdateManyResponse!
   updateManyTests(input: UpdateManyTestsInput!): UpdateManyResponse!
   updateOneContent(input: UpdateOneContentInput!): Content!
   updateOneDiscipline(input: UpdateOneDisciplineInput!): Discipline!
   updateOneLesson(input: UpdateOneLessonInput!): Lesson!
+  updateOneProduct(input: UpdateOneProductInput!): Product!
   updateOneStudent(input: UpdateOneStudentInput!): Student!
   updateOneTest(input: UpdateOneTestInput!): Test!
 }
@@ -656,6 +693,127 @@ input OffsetPaging {
 
   """Offset to start returning records from"""
   offset: Int
+}
+
+type Product {
+  brand: String!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  id: String!
+  isBroken: Boolean
+  name: String!
+  updatedAt: DateTime!
+}
+
+type ProductAggregateGroupBy {
+  brand: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  isBroken: Boolean
+  name: String
+  updatedAt: DateTime
+}
+
+type ProductConnection {
+  """Array of nodes."""
+  nodes: [Product!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type ProductCountAggregate {
+  brand: Int
+  createdAt: Int
+  deletedAt: Int
+  id: Int
+  isBroken: Int
+  name: Int
+  updatedAt: Int
+}
+
+input ProductDeleteFilter {
+  and: [ProductDeleteFilter!]
+  brand: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  isBroken: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ProductDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type ProductDeleteResponse {
+  brand: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  isBroken: Boolean
+  name: String
+  updatedAt: DateTime
+}
+
+input ProductFilter {
+  and: [ProductFilter!]
+  brand: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  isBroken: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ProductFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type ProductMaxAggregate {
+  brand: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type ProductMinAggregate {
+  brand: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input ProductSort {
+  direction: SortDirection!
+  field: ProductSortFields!
+  nulls: SortNulls
+}
+
+enum ProductSortFields {
+  brand
+  createdAt
+  deletedAt
+  id
+  isBroken
+  name
+  updatedAt
+}
+
+input ProductUpdateFilter {
+  and: [ProductUpdateFilter!]
+  brand: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  isBroken: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ProductUpdateFilter!]
+  updatedAt: DateFieldComparison
 }
 
 type Query {
@@ -701,6 +859,20 @@ type Query {
     """Specify to sort results."""
     sorting: [LessonSort!] = []
   ): LessonConnection!
+  product(
+    """The id of the record to find."""
+    id: ID!
+  ): Product
+  products(
+    """Specify to filter the records returned."""
+    filter: ProductFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ProductSort!] = []
+  ): ProductConnection!
   student(
     """The id of the record to find."""
     id: ID!
@@ -1141,6 +1313,14 @@ input UpdateManyLessonsInput {
   update: UpdateLessonInput!
 }
 
+input UpdateManyProductsInput {
+  """Filter used to find fields to update"""
+  filter: ProductUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateProductInput!
+}
+
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
@@ -1186,6 +1366,14 @@ input UpdateOneLessonInput {
   update: UpdateLessonInput!
 }
 
+input UpdateOneProductInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateProductInput!
+}
+
 input UpdateOneStudentInput {
   """The id of the record to update"""
   id: ID!
@@ -1200,6 +1388,13 @@ input UpdateOneTestInput {
 
   """The update to apply."""
   update: UpdateTestInput!
+}
+
+input UpdateProductInput {
+  brand: String
+  id: ID
+  isBroken: Boolean
+  name: String
 }
 
 input UpdateStudentInput {
