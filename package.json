@@ -1,7 +1,7 @@
 {
    "name": "nest-ts",
    "version": "0.0.1",
-   "description": "Nest Testing with Typeorm",
+   "description": "Nest Testing with Typeorm and GraphQL",
    "author": "LucasMarquesLeao <lucasmarquesleao@outlook.com>",
    "private": false,
    "license": "UNLICENSED",

@@ -5,7 +5,7 @@ import { ContentDTO } from '../../contents/dto/content.dto';
 
 //Algo para Muitos => Connection()// Relação única => Relation()
 @ObjectType('Lesson')
-@FilterableOffsetConnection('contents', () => ContentDTO, { nullable:true})
+@FilterableOffsetConnection('contents', () => ContentDTO, { nullable: true})
 export class LessonDTO extends BaseDTO {
   @FilterableField()
   description: string;

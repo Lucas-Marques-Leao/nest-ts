@@ -58,6 +58,8 @@ const cfg: TypeOrmModuleOptions = {
     ProductsModule,
 
   ],
+  
   providers: [AppService],
+
 })
 export class AppModule {}
